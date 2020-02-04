@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<table class="table table-striped table-bordered table-sm">  
+    <thead class="thead-dark">  
+    <tr>  
+        <th>User Name</th>  
+        <th>User Email</th>  
+        <th>Actions</th>
+    </tr>  
+    </thead>  
+    <tbody>  
+{% for user in users %}  
+    <tr>  
+        <td>{{ user.ename }}</td>  
+        <td>{{ user.eemail }}</td>  
+        <td>  
+            <a href="/edit/{{ user.id }}"><span class="glyphicon glyphicon-pencil" >Edit</span></a>  
+            <a href="/delete/{{ user.id }}">Delete</a>  
+        </td>
+    </tr>  
+{% endfor %}  
+    </tbody>  
+</table>  
+<br>  
+<br>  
+<center><a href="/usr" class="btn btn-primary">Add New Record</a></center>  
+{% endblock %}
