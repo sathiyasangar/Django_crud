@@ -1,12 +1,16 @@
 from django.shortcuts import render, redirect  
-from Mysite.forms import UserForm  
+from Mysite.forms import UserForm 
+from mysite.settings import EMAIL_HOST_USER
 from Mysite.models import User
 from django.views.generic import ListView, DetailView  
 from reportlab.pdfgen import canvas  
-from django.http import HttpResponse  
+from django.http import HttpResponse 
+from . import forms
+from Mysite.forms import Subscribe 
+from django.core.mail import send_mail 
 # Create your views here.  
 
-#Home Page
+#HOME PAGE
 def index(request):
     return HttpResponse("Under Progress..")
 
@@ -62,3 +66,16 @@ def getpdf(request):
     p.save()  
     return response  
 """
+
+#SEND EMAIL
+def subscribe(request):
+    sub = forms.Subscribe()
+    if request.method == 'POST':
+        sub = forms.Subscribe(request.POST)
+        subject = 'Test Django Mail'
+        message = 'Test Success...!!!'
+        recepient = str(sub['Email'].value())
+        send_mail(subject, 
+            message, EMAIL_HOST_USER, [recepient], fail_silently = False)
+        return render(request, 'success.html', {'recepient': recepient})
+    return render(request, 'mail.html', {'form':sub})
