@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect  
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
 from Mysite.forms import UserForm 
 from mysite.settings import EMAIL_HOST_USER
 from Mysite.models import User
@@ -8,6 +10,7 @@ from django.http import HttpResponse
 from . import forms
 from Mysite.forms import Subscribe 
 from django.core.mail import send_mail 
+from Mysite.functions import handle_uploaded_file  
 # Create your views here.  
 
 #HOME PAGE
@@ -53,6 +56,18 @@ def destroy(request, id):
     user = User.objects.get(id=id)  
     user.delete()  
     return redirect("/show")
+        
+#FILE UPLOAD
+def upload(request):  
+    if request.method == 'POST':  
+        user = UserForm(request.POST, request.FILES)  
+        if user.is_valid():  
+            handle_uploaded_file(request.FILES['file'])  
+            return HttpResponse("File uploaded successfuly")  
+    else:  
+        user = UserForm()  
+        return render(request,"index.html",{'form':form})  
+
 
 """ 
 #PDF GENRATOR
@@ -77,5 +92,5 @@ def subscribe(request):
         recepient = str(sub['Email'].value())
         send_mail(subject, 
             message, EMAIL_HOST_USER, [recepient], fail_silently = False)
-        return render(request, 'success.html', {'recepient': recepient})
+        return redirect("/mail")
     return render(request, 'mail.html', {'form':sub})

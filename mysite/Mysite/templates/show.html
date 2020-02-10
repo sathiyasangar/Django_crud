@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
+<br>
+<br>
 <table class="table table-striped table-bordered table-sm">  
     <thead class="thead-dark">  
     <tr>  
         <th>User Name</th>  
         <th>User Email</th>  
+        <th>User File</th>
         <th>Actions</th>
     </tr>  
     </thead>  
@@ -12,7 +15,8 @@
 {% for user in users %}  
     <tr>  
         <td>{{ user.ename }}</td>  
-        <td>{{ user.eemail }}</td>  
+        <td>{{ user.eemail }}</td> 
+        <td>{{ user.efile }}</td>  
         <td>  
             <a href="/edit/{{ user.id }}"><span class="glyphicon glyphicon-pencil" >Edit</span></a>  
             <a href="/delete/{{ user.id }}">Delete</a>  
