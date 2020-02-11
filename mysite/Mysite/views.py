@@ -10,7 +10,8 @@ from django.http import HttpResponse
 from . import forms
 from Mysite.forms import Subscribe 
 from django.core.mail import send_mail 
-from Mysite.functions import handle_uploaded_file  
+from Mysite.functions import handle_uploaded_file
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.  
 
 #HOME PAGE
@@ -35,6 +36,16 @@ def usr(request):
 #SELECT 
 def show(request):  
     users = User.objects.all()  
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(users, 2)
+    try:
+        users = paginator.page(page)
+    except PageNotAnInteger:
+        users = paginator.page(1)
+    except EmptyPage:
+        users = paginator.page(paginator.num_pages)
+
     return render(request,"show.html",{'users':users})
 
 #EDIT      
@@ -56,9 +67,9 @@ def destroy(request, id):
     user = User.objects.get(id=id)  
     user.delete()  
     return redirect("/show")
-        
+"""
 #FILE UPLOAD
-def upload(request):  
+def ind(request):  
     if request.method == 'POST':  
         user = UserForm(request.POST, request.FILES)  
         if user.is_valid():  
@@ -66,8 +77,8 @@ def upload(request):
             return HttpResponse("File uploaded successfuly")  
     else:  
         user = UserForm()  
-        return render(request,"index.html",{'form':form})  
-
+    return render(request,"index.html",{'form':form})  
+"""
 
 """ 
 #PDF GENRATOR
