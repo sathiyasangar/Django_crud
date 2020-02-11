@@ -12,6 +12,7 @@ from Mysite.forms import Subscribe
 from django.core.mail import send_mail 
 from Mysite.functions import handle_uploaded_file
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 # Create your views here.  
 
 #HOME PAGE
