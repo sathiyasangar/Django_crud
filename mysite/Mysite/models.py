@@ -4,7 +4,7 @@ from django.db import models
 class User(models.Model):   
     ename = models.CharField(max_length=100)  
     eemail = models.EmailField()  
-    #efiles = models.FileField() #New Field
+    #efiles = models.FileField() 
     #epassword = models.CharField(max_length=255, blank=True)
     
     class Meta:  

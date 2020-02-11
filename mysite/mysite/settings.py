@@ -94,7 +94,7 @@ EMAIL_HOST_USER = 'youremail@gmail.com'
 EMAIL_HOST_PASSWORD = 'yourpassword'
 
 CRONJOBS = [
-    ('* * * * *', 'Mysite.cron.my_cron_job')
+    ('* * * * *', 'Mysite.cron.my_cron_job', '>> test.log')
 ]
 
 PASSWORD_HASHERS = [
@@ -103,6 +103,7 @@ PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.Argon2PasswordHasher',
     'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
 ]
+
 
 
 AUTH_PASSWORD_VALIDATORS = [

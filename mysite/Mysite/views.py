@@ -12,11 +12,12 @@ from Mysite.forms import Subscribe
 from django.core.mail import send_mail 
 from Mysite.functions import handle_uploaded_file
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+import logging
 # Create your views here.  
-
+logger = logging.getLogger(__name__)
 #HOME PAGE
 def index(request):
+    logger.error("Test!!")
     return HttpResponse("Under Progress..")
 
 
