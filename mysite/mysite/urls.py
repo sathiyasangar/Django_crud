@@ -19,7 +19,7 @@ from django.urls import path
 from Mysite import views 
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.logg, name='index'),
     path('admin/', admin.site.urls),
     path('usr', views.usr),  
     path('show',views.show),   
@@ -27,6 +27,7 @@ urlpatterns = [
     path('edit/<int:id>', views.edit),  
     path('update/<int:id>', views.update),  
     path('delete/<int:id>', views.destroy), 
+    path('reg',views.reg),
     
     #path('ind',views.ind),  
     #path('pdf',views.getpdf), 

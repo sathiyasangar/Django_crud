@@ -13,6 +13,7 @@ from django.core.mail import send_mail
 from Mysite.functions import handle_uploaded_file
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import logging
+
 # Create your views here.  
 logger = logging.getLogger(__name__)
 #HOME PAGE
@@ -107,3 +108,10 @@ def subscribe(request):
             message, EMAIL_HOST_USER, [recepient], fail_silently = False)
         return redirect("/mail")
     return render(request, 'mail.html', {'form':sub})
+#LOGIN
+def logg(request):
+    return render(request,"home.html")
+#Register
+def reg(request):
+    return render(request,"register.html")
+
