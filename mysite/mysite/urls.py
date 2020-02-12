@@ -28,6 +28,7 @@ urlpatterns = [
     path('update/<int:id>', views.update),  
     path('delete/<int:id>', views.destroy), 
     path('reg',views.reg),
+    path('regs',views.regins),
     
     #path('ind',views.ind),  
     #path('pdf',views.getpdf), 

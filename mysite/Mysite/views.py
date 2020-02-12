@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from Mysite.forms import UserForm 
+from Mysite.forms import RegisForm
 from mysite.settings import EMAIL_HOST_USER
 from Mysite.models import User
+from Mysite.models import Regis
 from django.views.generic import ListView, DetailView  
 from reportlab.pdfgen import canvas  
 from django.http import HttpResponse 
@@ -13,6 +15,8 @@ from django.core.mail import send_mail
 from Mysite.functions import handle_uploaded_file
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import logging
+from django.contrib.auth.hashers import make_password, check_password
+
 
 # Create your views here.  
 logger = logging.getLogger(__name__)
@@ -115,3 +119,17 @@ def logg(request):
 def reg(request):
     return render(request,"register.html")
 
+def regins(request):
+    if request.method == "POST":  
+        form = RegisForm(request.POST)  
+        if form.is_valid():  
+            try:  
+                password = make_password("plain_text")
+                check_password("plain_text",password)
+                form.save()  
+                return redirect('/')  
+            except:  
+                pass  
+    else:  
+        form = RegisForm()  
+    return render(request,'register.html',{'form':form})  
