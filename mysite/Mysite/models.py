@@ -13,11 +13,13 @@ class User(models.Model):
     
 class Regis(models.Model):  
     rid = models.AutoField(primary_key=True)  
-    rname = models.CharField(max_length=200, null=False)  
+    rname = models.CharField(max_length=200)  
     remail = models.EmailField()  
-    rpass = models.CharField(max_length=200, null=False)
+    rpass = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
 
     class Meta:  
-        db_table = "register"   
+        db_table = "registers"
+        
+  

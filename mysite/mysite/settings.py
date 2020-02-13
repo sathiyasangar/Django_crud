@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -39,7 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Mysite',
     'django_crontab',
+
+    'crispy_forms',
     ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -138,13 +144,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-
-PASSWORD_HASHERS = (
-    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
-    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
-    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
-    'django.contrib.auth.hashers.BCryptPasswordHasher',
-    'django.contrib.auth.hashers.SHA1PasswordHasher',
-    'django.contrib.auth.hashers.MD5PasswordHasher',
-    'django.contrib.auth.hashers.CryptPasswordHasher',
-)

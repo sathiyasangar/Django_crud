@@ -16,10 +16,12 @@ from Mysite.functions import handle_uploaded_file
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import logging
 from django.contrib.auth.hashers import make_password, check_password
+from passlib.hash import pbkdf2_sha256
 
 
 # Create your views here.  
 logger = logging.getLogger(__name__)
+
 #HOME PAGE
 def index(request):
     logger.error("Test!!")
@@ -112,24 +114,51 @@ def subscribe(request):
             message, EMAIL_HOST_USER, [recepient], fail_silently = False)
         return redirect("/mail")
     return render(request, 'mail.html', {'form':sub})
+
 #LOGIN
 def logg(request):
     return render(request,"home.html")
+
 #Register
 def reg(request):
     return render(request,"register.html")
 
+#SIGNUPINSERT
 def regins(request):
     if request.method == "POST":  
         form = RegisForm(request.POST)  
         if form.is_valid():  
             try:  
-                password = make_password("plain_text")
-                check_password("plain_text",password)
                 form.save()  
                 return redirect('/')  
             except:  
-                pass  
+                pass    
     else:  
         form = RegisForm()  
     return render(request,'register.html',{'form':form})  
+
+ 
+def login(request):
+    if request.user.is_authenticated():
+        return redirect('/')
+ 
+    if request.method == 'POST':
+        name = request.POST.get('rname')
+        password = request.POST.get('rpassword')
+        user = auth.authenticate(name=rname, password=rpass)
+ 
+        if user is not None:
+            # correct username and password login the user
+            auth.login(request, user)
+            return redirect('usr')
+ 
+        else:
+            messages.error(request, 'Error wrong username/password')
+ 
+    return render(request, '/')
+ 
+ 
+def logout(request):
+    auth.logout(request)
+    return render(request,'blog/logout.html')
+ 
