@@ -139,23 +139,23 @@ def regins(request):
 
  
 def login(request):
-    if request.user.is_authenticated():
+    if request.RegisForm.is_authenticated():
         return redirect('/')
  
     if request.method == 'POST':
-        name = request.POST.get('rname')
+        email = request.POST.get('remail')
         password = request.POST.get('rpassword')
-        user = auth.authenticate(name=rname, password=rpass)
+        RegisForm = auth.authenticate(email=remail, password=rpass)
  
-        if user is not None:
+        if RegisForm is not None:
             # correct username and password login the user
-            auth.login(request, user)
+            auth.login(request, Regis)
             return redirect('usr')
  
         else:
             messages.error(request, 'Error wrong username/password')
  
-    return render(request, '/')
+    return render(request, 'usr')
  
  
 def logout(request):
